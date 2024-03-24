@@ -22,7 +22,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 142.1 76.2% 36.3%;
+    /* --ring: 142.1 76.2% 36.3%; */
     --radius: 0.5rem;
   }
 
@@ -45,7 +45,7 @@
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 142.4 71.8% 29.2%;
+    /* --ring: 142.4 71.8% 29.2%; */
   }
 }
 
@@ -193,12 +193,12 @@ body {
   }
 
   .input-field {
-    @apply bg-grey-50 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+    @apply focus-visible:ring-offset-0 rounded-lg px-4 py-3 border-none focus-visible:ring-transparent !important;
   }
 
-  .textarea {
-    @apply bg-grey-50 flex flex-1 placeholder:text-grey-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
-  }
+  /* .textarea {
+    @apply flex flex-1 placeholder:text-grey-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
+  } */
 
   .button {
     @apply h-[54px] p-regular-16;
@@ -241,21 +241,29 @@ body {
   width: 100%;
 }
 
+.react-datepicker {
+  background-color: black;
+  /* width: 100%;
+  outline: none;
+  margin-left: 16px; */
+}
+
 .react-datepicker__input-container input {
   background-color: transparent;
   width: 100%;
   outline: none;
   margin-left: 16px;
+  cursor: pointer;
 }
 
 .react-datepicker__day--selected {
-  background-color: #624cf5 !important;
+  background-color: #16A34A !important;
   color: #ffffff !important;
   border-radius: 4px;
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #624cf5 !important;
+  background-color: #16A34A !important;
 }
  
 @layer base {
