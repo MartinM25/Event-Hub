@@ -3,7 +3,7 @@
 import * as z from "zod"
 import Dropdown from "@/components/shared/Dropdown"
 
-import { MapPin, CalendarDays, DollarSign, Link } from 'lucide-react'
+import { MapPin, CalendarDays, DollarSign, Link, Loader2 } from 'lucide-react'
 import { Textarea } from "@/components/ui/textarea"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
@@ -15,19 +15,31 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { FileUpload } from "./FileUpload"
 import { useState } from "react"
 import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css"
 import { Checkbox } from "@/components/ui/checkbox"
-
+import { useUploadThing } from '@/lib/uploadthing'
+import { useRouter } from "next/navigation"
+import { createEvent, updateEvent } from "@/lib/actions/event.actions"
+import { IEvent } from "@/lib/database/models/event.model"
 
 type EventFormProps = {
   userId: string
   type: "Create" | "Update"
+  event?: IEvent,
+  eventId?: string
 }
 
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
-
-  const initialValues = eventDefaultValues;
+  const router = useRouter();
+  const initialValues = event && type === "Update" 
+    ? {
+        ...event,
+        startDateTime: new Date(event.startDateTime),
+        endDateTime: new Date(event.endDateTime)
+      } 
+    : eventDefaultValues;
+  const { startUpload } = useUploadThing('imageUploader')
 
    // 1. Define your form.
    const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -36,11 +48,59 @@ const EventForm = ({ userId, type }: EventFormProps) => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    let uploadedImageUrl = values.imageUrl;
+
+    if(files.length > 0) {
+      const uploadedImages = await startUpload(files)
+
+      if(!uploadedImages) {
+        return
+      }
+
+      uploadedImageUrl = uploadedImages[0].url
+    }
+
+    if(type === 'Create') {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: '/profile'
+        })
+
+        if(newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if(type === 'Update') {
+      if(!eventId) {
+        router.back()
+        return;
+      }
+
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          path: `/events/${eventId}`
+        })
+
+        if(updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
@@ -214,7 +274,12 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                               <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                 Free Ticket
                               </label>
-                              <Checkbox id="isFree" className="mr-2 h-4 w-4" />
+                              <Checkbox 
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
+                                id="isFree" 
+                                className="mr-2 h-4 w-4" 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -250,8 +315,20 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             )}
           />
         </div>
-        <Button type="submit" className="md:w-[75%] md:mx-auto">Submit</Button>
+        <Button 
+          type="submit" 
+          className="md:w-[75%] md:mx-auto col-span-2"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Submitting
+            </>
+          ): `${type} Event`}
+        </Button>
       </form>
+
     </Form>
   )
 }
