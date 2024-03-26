@@ -29,37 +29,31 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
   return (
     <div className='group relative flex min-h-[380px] w-full flex-col overflow-hidden border transition-all hover:shadow-lg md:min-h-[438px]'>
       <Link 
-        href={`/events/${event.id}`}
+        href={`/events/${event._id}`}
         style={{backgroundImage: `url(${event.imageUrl})`}}
         className='flex-center flex-grow bg-secondary bg-cover bg-center text-secondary'
       />
 
       {/* IS EVENT CREATOR */}
       {isEventCreator && !hidePrice && (
-        // <div className='absolute right-2 top-2 flex flex-col gap-3 rounded-xl bg-secondary p-2 shadow-sm transition-all hover:contrast-50'>
-        //   <Link href={`/events/${event._id}/update`}>
-        //     <SquarePen className='h-4 w-4'/>
-        //   </Link>
-        //   <DeleteConfirmation eventId={event._id} />
-        // </div>
         <div className='absolute right-2 top-2 flex flex-col rounded-xl bg-secondary p-2 shadow-sm transition-all hover:contrast-50'>
-        <Popover>
-          <PopoverTrigger>
-            <PenLine className='h-4 w-4'/>
-          </PopoverTrigger>
-          <PopoverContent className='w-[160px] '>
-            <Link href={`/events/${event._id}/update`} className='flex text-sm hover:bg-secondary rounded px-2 py-1 items-center'>
-              <SquarePen className='h-4 w-4 mr-2'/>
-              <p>Update</p>
-            </Link>
-            <DeleteConfirmation eventId={event._id} />
-            </PopoverContent>
-        </Popover>
+          <Popover>
+            <PopoverTrigger>
+              <PenLine className='h-4 w-4'/>
+            </PopoverTrigger>
+            <PopoverContent className='w-[160px] '>
+              <Link href={`/events/${event._id}/update`} className='flex text-sm hover:bg-secondary rounded px-2 py-1 items-center'>
+                <SquarePen className='h-4 w-4 mr-2'/>
+                <p>Update</p>
+              </Link>
+              <DeleteConfirmation eventId={event._id} />
+              </PopoverContent>
+          </Popover>
         </div>
       )}
 
       <Link
-        href={`/events/${event.id}`}
+        href={`/events/${event._id}`}
         className='flex min-h-[130px] flex-col gap-2 p-5 md:gap-3'
       >
         {!hidePrice && <div className='flex gap-2 items-center'>
