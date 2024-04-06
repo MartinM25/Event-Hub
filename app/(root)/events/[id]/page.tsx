@@ -99,7 +99,7 @@ const EventDetails = async ({
               </div>
             </div>
             <div className="hidden lg:block w-full lg:w-[30%]">
-              <div className="w-full border lg:sticky lg:top-6 z-10 p-4 gap-4 rounded-lg h-[140px] items-center">
+              <div className="w-full border lg:sticky lg:top-20 z-5 p-4 gap-4 rounded-lg h-[140px] items-center">
                 <p className="text-primary text-center font-bold text-lg">
                   {event.isFree ? "FREE" : `$${event.price}`}
                 </p>
