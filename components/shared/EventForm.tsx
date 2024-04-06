@@ -186,9 +186,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormLabel>Location</FormLabel>
                 <FormControl>
-                  <div className="flex-center border rounded-lg">
+                  <div className="flex-center border focus-within:border-primary rounded-lg">
                     <MapPin className="ml-2 h-5 w-5" />
-                    <Input placeholder="Location or Online" className="input-field" {...field} />
+                    <Input placeholder="Location or Online" className="border-none" {...field} />
                   </div>
                 </FormControl>
                 <FormDescription>

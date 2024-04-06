@@ -1,98 +1,143 @@
-import { getEventById } from '@/lib/actions/event.actions'
-import { SearchParamProps } from '@/types'
-import { formatDateTime } from '@/lib/utils'
-import { Separator } from "@/components/ui/separator"
+import CheckoutButton from "@/components/shared/CheckoutButton";
+import Collection from "@/components/shared/Collection";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { CalendarDays, MapPin  } from 'lucide-react';
+  getEventById,
+  getRelatedEventsByCategory,
+} from "@/lib/actions/event.actions";
+import { CalendarClock, MapPin, UserRound   } from "lucide-react";
+import { formatDateTime } from "@/lib/utils";
+import { SearchParamProps } from "@/types";
+import Image from "next/image";
 
+const EventDetails = async ({
+  params: { id },
+  searchParams,
+}: SearchParamProps) => {
+  const desiredWidth = 650; // Set your desired width here
+  const originalWidth = 700; // Set the original width of your image
+  const originalHeight = 500; // Set the original height of your image
 
-import Image from 'next/image'
-import React from 'react'
+  // Calculate the height to maintain aspect ratio
+  const desiredHeight = Math.round(
+    (originalHeight / originalWidth) * desiredWidth
+  );
 
-const EventDetails = async ({ params: { id }}: SearchParamProps) => {
-  const event = await getEventById(id)
-  
+  const event = await getEventById(id);
+
+  const relatedEvents = await getRelatedEventsByCategory({
+    categoryId: event.category._id,
+    eventId: event._id,
+    page: searchParams.page as string,
+  });
+
   return (
-    <section className='flex justify-center'>
-      <div className="">
-        <Image 
-          src={event.imageUrl}
-          alt="hero image"
-          width={2000}
-          height={1000}
-          className="h-[400px] min-h-[300px] object-cover object-center"
-        />
+    <>
+      <section className="flex justify-center w-full md:px-20">
+        <div className="">
+          <div className="rounded-lg md:mt-4 justify-center bg-secondary">
+            <Image
+              src={event.imageUrl}
+              alt="hero image"
+              width={desiredWidth}
+              height={desiredHeight}
+              className="object-cover mx-auto object-center"
+            />
+          </div>
 
-        <div className="flex w-full flex-col gap-8 p-5 md:p-10">
-          <div className='flex flex-col lg:flex-row gap-5 justify-between'>
-            <div className="flex flex-col gap-6 md:w-[60%] w-full">
-              <h2 className='h2-bold'>{event.title}</h2>
-              <div className="flex flex-row gap-3">
-                <p className=" ml-2">
-                  by{' '}
-                  <span className="text-primary">{event.organizer.firstName} {event.organizer.lastName}</span>
-                </p>
-                <Separator orientation="vertical" className="h-6" />
-                <p className="truncate cursor-pointer hover:underline">{event.url}</p>
+          <div className="flex flex-col gap-6 lg:flex-row w-full py-6">
+            <div className="w-full lg:w-[70%] lg:pr-4">
+              <div className="rounded ml-4 lg:ml-0 lg:mb-4 items-center text-sm text-primary font-bold bg-green-500/10 px-2 py-1 inline-block">
+                <p className="">{event.category.name}</p> 
               </div>
-              <div className="flex flex-col gap-2">
-                <p className="p-bold-20 text-grey-600">About</p>
-                <Separator className='my-4' />
-                <p className="p-medium-16 lg:p-regular-18">{event.description}</p> 
+              <h2 className="text-4xl font-bold capitalize lg:pb-4 mx-auto p-4 lg:p-0">
+                {event.title}
+              </h2>
+              <p className="text-sm lg:pb-4 mx-auto p-4 lg:p-0">
+                {event.description}
+              </p>
+              <div className="flex gap-8 flex-row items-center bg-secondary rounded-lg h-16 p-4 my-2 mx-4 lg:mx-0">
+               <UserRound className="h-8 w-8" />
+               <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
+                  By{" "}{" "}
+                  <span className="font-bold">
+                    {event.organizer.firstName} {event.organizer.lastName}
+                  </span>
+                </p> 
               </div>
-            </div>
-            <div className='w-[495px]'>
-              <Card className=''>
-                <CardHeader>
-                  <CardTitle className='flex flex-row mb-4 items-center'>
-                    <p className='text-sm pr-2 text-[#A5A5AA]'>Price: </p>
-                    <p className="p-bold-20 text-green-700">
-                      {event.isFree ? 'FREE' : `$${event.price}`}
+              <div className="flex flex-col lg:py-4 mx-auto p-4 lg:p-0">
+                <h3 className="text-2xl font-bold">Date & Time</h3>
+                <div className="flex py-3 items-center">
+                  <CalendarClock className="h-5 w-5" />
+                  <div className="flex flex-wrap items-center px-4 text-sm">
+                    <p>
+                      {formatDateTime(event.startDateTime).dateAndTime},{" "}
+                      {formatDateTime(event.startDateTime).timeOnly}{" "}
                     </p>
-                  </CardTitle>
-                  <CardDescription>
-                    <Separator />
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className='flex gap-2 md:gap-2 items-center text-sm pb-6'>
-                    <CalendarDays className='h-6.4 w-6.4'/>
-                    <div className="flex flex-row items-center gap-2">
-                      <p className=''>
-                        {formatDateTime(event.startDateTime).dateOnly}{' '}
-                        {formatDateTime(event.startDateTime).timeOnly}
-                      </p>
-                        {'-'}
-                      <p className=''>
-                        {formatDateTime(event.endDateTime).dateOnly}{' '}
+                    {" - "}
+                    {formatDateTime(event.startDateTime).dateAndTime ===
+                    formatDateTime(event.endDateTime).dateAndTime ? (
+                      <>
+                        <p>{formatDateTime(event.endDateTime).timeOnly}</p>
+                      </>
+                    ) : (
+                      <p>
+                        - {formatDateTime(event.endDateTime).dateAndTime},{" "}
                         {formatDateTime(event.endDateTime).timeOnly}
                       </p>
-                    </div>
+                    )}
                   </div>
-                  <div className=" flex items-center gap-2 text-sm">
-                    <MapPin className='w-6 h-6' />
-                    <p className="">{event.location}</p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className='w-full'>Buy Ticket</Button>
-                </CardFooter>
-              </Card>
+                </div>
+              </div>
+              <div className="flex flex-col lg:pb-4 mx-auto p-4 lg:p-0">
+                <h3 className="text-2xl font-bold">Location</h3>
+                <div className="flex py-3 items-center">
+                  <MapPin className="h-6 w-6" />
+                  <p className="px-4 text-sm">
+                    {event.location}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="hidden lg:block w-full lg:w-[30%]">
+              <div className="w-full border lg:sticky lg:top-6 z-10 p-4 gap-4 rounded-lg h-[140px] items-center">
+                <p className="text-primary text-center font-bold text-lg">
+                  {event.isFree ? "FREE" : `$${event.price}`}
+                </p>
+                <CheckoutButton event={event} />
+              </div>
             </div>
           </div>
-          {/* <CheckoutButton event={event} /> */}
         </div>
-      </div>
-    </section>
-  )
-}
+      </section>
 
-export default EventDetails
+      {/* EVENTS WITH THE SAME CATEGORY */}
+      <section className="w-full px-4 md:px-20 my-8 flex flex-col gap-8 md:gap-12 border-t">
+        <h2 className="font-bold text-4xl pt-4">Related Events</h2>
+
+        <Collection
+          data={relatedEvents?.data}
+          emptyTitle="No Events Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Events"
+          limit={3}
+          page={searchParams.page as string}
+          totalPages={relatedEvents?.totalPages}
+        />
+      </section>
+
+      {/*STICKY PRICE ELEMENT THAT ONLY SHOWS ON SMALL DEVICES  */}
+      <section>
+        <div className="lg:hidden w-full border-t fixed bottom-0 z-10 bg-background">
+          <div className="p-4 gap-4 h-[100px]">
+            <p className="text-primary text-center font-bold text-lg">
+              {event.isFree ? "FREE" : `$${event.price}`}
+            </p>
+            <CheckoutButton event={event} />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default EventDetails;
