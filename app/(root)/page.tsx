@@ -17,8 +17,8 @@ export default async function Home() {
       <section className=" bg-dotted-pattern bg-contain py-5 md-py-10">
         <div className="flex flex-col md:flex-row">
           <div className="flex md:pl-20 xl:pl-10 pl-10 flex-col justify-center gap-8">
-            <h1 className="h1-bold">Host, Connect, Celebrate: Your Events, Our Platform!</h1>
-            <p className="p-regular-20 md:p-regular-24">Book and learn helpful tips from 3,168+ mentors in world-class companies with our global community.</p>
+            <h1 className="text-5xl font-bold">Connect, Host, and Celebrate: Where Events Come Alive!</h1>
+            <p className="p-regular-20 md:p-regular-24">Your Gateway to Exclusive Events and Unforgettable Experiences!</p>
             <Button size="lg" asChild className="rounded-lg h-[54px] p-regular-16 dark:text-white w-fit">
               <Link href="#events">Explore Now</Link>
             </Button>
