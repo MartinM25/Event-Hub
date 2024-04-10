@@ -24,9 +24,8 @@ export const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className='flex w-full rounded px-2 py-1 items-center text-sm hover:bg-secondary'>
-        <Trash2 className='h-4 w-4 mr-2' />
-        <p>Delete</p>
+      <AlertDialogTrigger className='bg-white dark:bg-secondary rounded-full p-2'>
+        <Trash2 className='h-4 w-4' />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="">

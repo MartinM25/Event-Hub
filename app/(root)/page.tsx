@@ -18,7 +18,7 @@ export default async function Home() {
         <div className="flex flex-col md:flex-row">
           <div className="flex md:pl-20 xl:pl-10 pl-10 flex-col justify-center gap-8">
             <h1 className="text-5xl font-bold">Connect, Host, and Celebrate: Where Events Come Alive!</h1>
-            <p className="p-regular-20 md:p-regular-24">Your Gateway to Exclusive Events and Unforgettable Experiences!</p>
+            <p className="text-sm md:text-lg">Your Gateway to Exclusive Events and Unforgettable Experiences!</p>
             <Button size="lg" asChild className="rounded-lg h-[54px] p-regular-16 dark:text-white w-fit">
               <Link href="#events">Explore Now</Link>
             </Button>
@@ -33,8 +33,8 @@ export default async function Home() {
         </div>
       </section>
      
-      <section id="events" className="flex flex-col px-10 md:px-20 py-8" >
-        <h2 className="h2-bold">Trust by <br /> Thousands of Events</h2>
+      <section id="events" className="flex flex-col px-10 md:px-20 py-8 gap-y-6" >
+        <h2 className="text-4xl font-bold">Thousand of Events,<br /> Trusted By Many</h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           Search
           CategoryFilter

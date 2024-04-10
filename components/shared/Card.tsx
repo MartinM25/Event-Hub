@@ -1,17 +1,12 @@
-import { IEvent } from '@/lib/database/models/event.model'
-import { ArrowUpRight, SquarePen, PenLine  } from 'lucide-react'
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+
+import { auth } from '@clerk/nextjs'
 import { Separator } from '../ui/separator'
 import { formatDateTime } from '@/lib/utils'
-import { auth } from '@clerk/nextjs'
-import Image from 'next/image'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { DeleteConfirmation } from './DeleteConfirmation'
+import { IEvent } from '@/lib/database/models/event.model'
+import { ArrowUpRight, SquarePen, PenLine  } from 'lucide-react'
 
 type CardComponentProps = {
   event: IEvent,
@@ -27,48 +22,44 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
   const isEventCreator = userId === event.organizer._id.toString();
 
   return (
-    <div className='group relative flex min-h-[380px] w-full flex-col overflow-hidden border transition-all hover:shadow-lg md:min-h-[438px]'>
-      <Link 
-        href={`/events/${event._id}`}
-        style={{backgroundImage: `url(${event.imageUrl})`}}
-        className='flex-center flex-grow bg-secondary bg-cover bg-center text-secondary'
-      />
+    <div className='group relative flex h-[330px] max-w-[380px] w-full flex-col overflow-hidden transition-all'>
+      
+        <Link 
+          href={`/events/${event._id}`}
+          style={{backgroundImage: `url(${event.imageUrl})`}}
+          className='flex-center flex-grow bg-secondary bg-cover bg-center text-secondary'
+        />
+        {isEventCreator && !hidePrice && (
+          <div className='absolute right-2 top-2 flex flex-col gap-2 '>
+            
+            <Link href={`/events/${event._id}/update`} className='justify-between items-center bg-white dark:bg-secondary p-2 rounded-full'>
+              <SquarePen className='h-4 w-4'/>
+            </Link>
+            
+            <DeleteConfirmation eventId={event._id} />
+        
+          </div>        
+        )}
 
-      {/* IS EVENT CREATOR */}
-      {isEventCreator && !hidePrice && (
-        <div className='absolute right-2 top-2 flex flex-col rounded-xl bg-secondary p-2 shadow-sm transition-all hover:contrast-50'>
-          <Popover>
-            <PopoverTrigger>
-              <PenLine className='h-4 w-4'/>
-            </PopoverTrigger>
-            <PopoverContent className='w-[160px] '>
-              <Link href={`/events/${event._id}/update`} className='flex text-sm hover:bg-secondary rounded px-2 py-1 items-center'>
-                <SquarePen className='h-4 w-4 mr-2'/>
-                <p>Update</p>
-              </Link>
-              <DeleteConfirmation eventId={event._id} />
-              </PopoverContent>
-          </Popover>
-        </div>
-      )}
+      <div className='flex h-[150px] border flex-col gap-2 p-5 md:gap-3'>
+        
+        {!hidePrice && 
+          <div className='flex gap-2 items-center'>
+            <span className='p-semibold-14 text-sm text-secondary-foreground w-min'>
+              {event.isFree ? "FREE" : `$${event.price}`}
+            </span>
+            <Separator orientation='vertical' className='h-4'/>
+            <p className='text-sm p-semibold-14 text-secondary-foreground'>
+              {event.category.name}
+            </p>
+          </div> 
+        }
 
-      <Link
-        href={`/events/${event._id}`}
-        className='flex min-h-[130px] flex-col gap-2 p-5 md:gap-3'
-      >
-        {!hidePrice && <div className='flex gap-2 items-center'>
-          <span className='p-semibold-14 text-sm text-secondary-foreground w-min'>
-            {event.isFree ? "FREE" : `$${event.price}`}
-          </span>
-          <Separator orientation='vertical' className='h-4'/>
-          <p className='text-sm p-semibold-14 text-secondary-foreground'>
-            {event.category.name}
+        <Link href={`/events/${event._id}`}>
+          <p className='line-clamp-1 flex-1'>
+            {event.title}
           </p>
-        </div> }
-
-        <p className='p-medium-16 md:p-medium-20 line-clamp-2 flex-1'>
-          {event.title}
-        </p>
+        </Link>
 
         <div className='flex-between w-full'>
           <p className='text-sm text-[#B3B3B3]'>
@@ -90,10 +81,11 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
           <p className=''>
             {formatDateTime(event.startDateTime).timeOnly}
           </p>
-        </div>
-      </Link>
+        </div> 
+     
+      </div>
     </div>
-  )
+  )  
 }
 
 export default CardComponent
