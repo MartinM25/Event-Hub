@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { getEventsByUser } from '@/lib/actions/event.actions'
 import Collection from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
+import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
 const MyEvents = async ({ searchParams }: SearchParamProps) => {
 
@@ -35,7 +36,7 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
         </Button>
       </div>
       <Separator />
-      <section className="">
+      <section className="grid grid-cols-1">
         <Collection 
           data={organizedEvents?.data}
           emptyTitle="No events have been created yet"
@@ -45,6 +46,7 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
           page={eventsPage}
           urlParamName="eventsPage"
           totalPages={organizedEvents?.totalPages}
+          specialPage={true}
         />
       </section>
   </div>

@@ -67,9 +67,9 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
           </p>
 
           {hasOrderLink && (
-            <Link href={`/orders?eventId=${event._id}`} className='flex gap-2'>
-              <p className='text-primary'>Order Details</p>
-              <ArrowUpRight className='h-5 w-5'/>
+            <Link href={`/orders?eventId=${event._id}`} className='flex gap-1 group group-hover:text-primary group-hover:underline'>
+              <p className='text-sm'>Order Details</p>
+              <ArrowUpRight className='h-4 w-4'/>
             </Link>
           )}
         </div>

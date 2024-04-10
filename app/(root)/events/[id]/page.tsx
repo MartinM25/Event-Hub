@@ -32,7 +32,7 @@ const EventDetails = async ({
 
   return (
     <>
-      <section className="flex justify-center w-full md:px-20">
+      <section className="flex justify-center w-full lg:px-20">
         <div className="">
           <div className="rounded-lg md:mt-4 justify-center bg-secondary">
             <Image
@@ -122,6 +122,7 @@ const EventDetails = async ({
           limit={3}
           page={searchParams.page as string}
           totalPages={relatedEvents?.totalPages}
+          specialPage={false}
         />
       </section>
 

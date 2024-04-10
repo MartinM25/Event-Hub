@@ -17,7 +17,7 @@ export function NavItems() {
             key={link.route}
             className={`${
               isActive && 'text-primary'
-            } flex-center text-zinc-500 font-normal whitespace-nowrap hover:text-zinc-900`}
+            } flex-center font-normal whitespace-nowrap`}
           >
             <Link href={link.route}>{link.label}</Link>
           </li>
