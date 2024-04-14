@@ -14,36 +14,26 @@ type CollectionProps = {
   specialPage: boolean
 }
 
-const Collection = ({
-  data,
-  emptyTitle,
-  emptyStateSubtext,
-  page,
-  totalPages = 0,
-  collectionType,
-  urlParamName,
-  specialPage
-}: CollectionProps) => {
+export const Collection = ({data, emptyTitle, emptyStateSubtext, page, totalPages = 0, collectionType, urlParamName, specialPage }: CollectionProps) => {
 
-  const getColumnClass = () => {
-    if (specialPage === true) {
+  const getColumns = () => {
+    if( specialPage === true ) {
       return 'grid-cols-3'
     } else {
       return 'grid-cols-4'
     }
   }
-
   return (
     <>
       {data.length > 0 ? (
-        <div className='flex flex-col items-center'>
-          <ul className={`grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:${getColumnClass()} xl:gap-10 `}>
+        <div className='fle flex-col items-center'>
+          <ul className={`grid w-full grid-cols-1 md:grid-cols-2 lg:${getColumns()} xl:gap-10`}>
             {data.map((event) => {
               const hasOrderLink = collectionType === "Events_Organized";
               const hidePrice = collectionType === "My_Tickets";
 
               return (
-                <li key={event._id} className='flex justify-center'>
+                <li key={event._id} className='flex justify-center pb-6 md:pb-0'>
                   <CardComponent 
                     event={event}
                     hasOrderLink={hasOrderLink}
@@ -64,4 +54,34 @@ const Collection = ({
   )
 }
 
-export default Collection
+// export const SpecialCollection = ({data, emptyTitle, emptyStateSubtext, page, totalPages = 0, collectionType, urlParamName, }: CollectionProps) => {
+//   return (
+//     <>
+//       {data.length > 0 ? (
+//         <div className='flex flex-col items-center'>
+//           <ul className='grid w-full grid-cols-1 md:grid-col-2 lg:grid-col-3 xl:gap-10'>
+//             {data.map((event) => {
+//               const hasOrderLink = collectionType === "Events_Organized";
+//               const hidePrice = collectionType === "My_Tickets";
+
+//               return (
+//                 <li key={event._id} className='flex justify-center'>
+//                   <CardComponent 
+//                     event={event}
+//                     hasOrderLink={hasOrderLink}
+//                     hidePrice={hidePrice} 
+//                   />
+//                 </li>
+//               )
+//             })}
+//           </ul>
+//         </div>
+//       ): (
+//         <div className='flex-center wrapper min-h-[200px] w-full flex-col gap-3 py-28 bg-secondary'>
+//           <h3 className='text-3xl font-bold'>{emptyTitle}</h3>
+//           <p className='text-sm md:text-lg italic'>{emptyStateSubtext}</p>
+//         </div>
+//       )}
+//     </>
+//   )
+// }

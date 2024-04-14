@@ -16,8 +16,8 @@ export function NavItems() {
           <li
             key={link.route}
             className={`${
-              isActive && 'text-primary'
-            } flex-center font-normal whitespace-nowrap`}
+              isActive && 'border-b-2 border-primary '
+            } flex-center text-zinc-600 hover:text-zinc-950 font-normal whitespace-nowrap py-0.1`}
           >
             <Link href={link.route}>{link.label}</Link>
           </li>

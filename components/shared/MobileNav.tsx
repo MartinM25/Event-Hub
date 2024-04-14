@@ -3,8 +3,7 @@ import Logo from "./Logo"
 import { EllipsisVertical } from "lucide-react"
 import { Separator } from "../ui/separator"
 import { MobileNavItems } from "./NavItems"
-import { MobileModeToggle } from "./ThemeToggle"
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet"
 
 const MobileNav = () => {
   return (
@@ -20,7 +19,6 @@ const MobileNav = () => {
           <Separator className=" border-zinc-200" />
           <MobileNavItems />
           <Separator className=" border-zinc-200" />
-          <MobileModeToggle />
         </SheetContent>
       </Sheet>
     </nav>

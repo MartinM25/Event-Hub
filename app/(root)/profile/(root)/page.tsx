@@ -1,6 +1,6 @@
 import React from 'react'
 import { Separator } from '@/components/ui/separator'
-import Collection from '@/components/shared/Collection'
+import { Collection } from '@/components/shared/Collection'
 import { SearchParamProps } from '@/types'
 import Link from 'next/link'
 import { getOrdersByUser } from '@/lib/actions/order.actions'
@@ -19,7 +19,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
 
   return (
-    <div className="space-y-6 w-full border border-red-600">
+    <div className="space-y-6 w-full">
     <div className="flex flex-row justify-between">  
       <div>
         <h3 className="text-lg font-medium">Tickets</h3>
@@ -34,7 +34,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
       </Button>
     </div>
     <Separator />
-    <section>
+    <section className='justify-start'>
       <Collection 
         data={orderedEvents}
         emptyTitle="No event tickets purchased yet"
@@ -44,6 +44,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
         page={ordersPage}
         urlParamName="ordersPage"
         totalPages={orders?.totalPages}
+        specialPage={true}
       />
     </section>
   </div>

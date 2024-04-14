@@ -1,11 +1,11 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import Logo from "./Logo"
 import Link from "next/link"
+import MobileNav from "./MobileNav"
+
 import { Button } from "../ui/button"
 import { NavItems } from "./NavItems"
-import { ModeToggle } from "./ThemeToggle"
-import MobileNav from "./MobileNav"
 import { Separator } from "../ui/separator"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 const Header = () => {
   return (
@@ -24,9 +24,6 @@ const Header = () => {
             
             <UserButton afterSignOutUrl="/" />
             <MobileNav /> 
-            <div className="hidden md:flex">  
-              <ModeToggle />
-            </div>
           </SignedIn>
 
           <SignedOut>
@@ -35,7 +32,6 @@ const Header = () => {
                 Login
               </Link>
             </Button>
-            <ModeToggle />
           </SignedOut>
         </div>
       </div>

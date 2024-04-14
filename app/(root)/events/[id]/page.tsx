@@ -1,13 +1,12 @@
+import Image from "next/image";
+
 import CheckoutButton from "@/components/shared/CheckoutButton";
-import Collection from "@/components/shared/Collection";
-import {
-  getEventById,
-  getRelatedEventsByCategory,
-} from "@/lib/actions/event.actions";
+import { Collection } from "@/components/shared/Collection";
+import { getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.actions";
 import { CalendarClock, MapPin, UserRound   } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
-import Image from "next/image";
+
 
 const EventDetails = async ({
   params: { id },
@@ -122,7 +121,6 @@ const EventDetails = async ({
           limit={3}
           page={searchParams.page as string}
           totalPages={relatedEvents?.totalPages}
-          specialPage={false}
         />
       </section>
 

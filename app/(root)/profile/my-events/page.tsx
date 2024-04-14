@@ -6,9 +6,8 @@ import { auth } from '@clerk/nextjs';
 import { SearchParamProps } from '@/types';
 import Link from 'next/link';
 import { getEventsByUser } from '@/lib/actions/event.actions'
-import Collection from '@/components/shared/Collection';
+import { Collection } from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
-import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
 const MyEvents = async ({ searchParams }: SearchParamProps) => {
 
@@ -36,7 +35,7 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
         </Button>
       </div>
       <Separator />
-      <section className="grid grid-cols-1">
+      <section className=''>
         <Collection 
           data={organizedEvents?.data}
           emptyTitle="No events have been created yet"
