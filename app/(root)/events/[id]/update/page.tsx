@@ -1,4 +1,5 @@
 import EventForm from '@/components/shared/EventForm'
+import { Separator } from '@/components/ui/separator';
 import { getEventById } from '@/lib/actions/event.actions';
 import { UpdateEventParams } from '@/types';
 import { auth } from '@clerk/nextjs';
@@ -17,20 +18,23 @@ const UpdateEvent = async ({ params: { id }}: UpdateEventProps) => {
 
   return (
     <>
-      <section className="py-5 md:py-10">
-        <h3 className="wrapper h3-bold text-left md:text-center">
-          Update Event
-        </h3>
+      <section className="space-y-6 py-5 md:py-10 w-full px-8 lg:px-20 pb-16 md:block">
+        <div className="space-y-0.5">
+          <h2 className="text-2xl font-bold tracking-tight">Event</h2>
+          <p className="text-muted-foreground">
+            Update your Event.
+          </p>
+        </div>
+        <Separator className="my-6" />
+        <div className="my-6">
+          <EventForm 
+            userId={userId} 
+            type="Update"
+            event={event}
+            eventId={event._id} 
+          />
+        </div>
       </section>
-
-      <div className="wrapper my-8">
-        <EventForm 
-          userId={userId} 
-          type="Update"
-          event={event}
-          eventId={event._id} 
-        />
-      </div>
     </>  
   )
 }

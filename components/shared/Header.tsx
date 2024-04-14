@@ -10,7 +10,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 const Header = () => {
   return (
     <header className="w-full border-b fixed z-10 bg-background ">
-      <div className="flex w-full lg:px-20 pl-10 py-2 items-center justify-between">
+      <div className="flex w-full lg:px-20 px-10 py-2 items-center justify-between">
         <Link href="/" className="w-36">
           <Logo />
         </Link>

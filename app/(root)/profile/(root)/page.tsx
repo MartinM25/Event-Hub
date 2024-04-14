@@ -19,7 +19,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
 
   return (
-    <div className="space-y-6 w-full">
+  <div className="space-y-6 w-full">
     <div className="flex flex-row justify-between">  
       <div>
         <h3 className="text-lg font-medium">Tickets</h3>

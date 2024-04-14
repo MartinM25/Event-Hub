@@ -21,7 +21,7 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
-      <div className="space-y-6 w-full px-8 lg:px-20 pb-16 md:block">
+      <div className="space-y-6 w-full py-5 md:py-10 px-8 lg:px-20 pb-16 md:block">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Profile</h2>
           <p className="text-muted-foreground">

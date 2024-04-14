@@ -104,7 +104,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="title"
@@ -138,14 +138,14 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             )}
           />
         </div>
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Title</FormLabel>
-                <FormControl className="h-[200px]">
+                <FormControl className="h-[239px]">
                   <Textarea placeholder="Decription" className="" {...field} />
                 </FormControl>
                 <FormDescription>
@@ -155,15 +155,13 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
-        </div>
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
           <FormField
             control={form.control}
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Image</FormLabel>
-                <FormControl className="border h-72">
+                <FormControl className="border h-[239px]">
                   <FileUpload 
                     onFieldChange={field.onChange}
                     imageUrl={field.value}
@@ -178,7 +176,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             )}
           />
         </div>
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
+        <div className="grid grid-cols-1">
           <FormField
             control={form.control}
             name="location"
@@ -199,7 +197,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             )}
           />
         </div>
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="startDateTime"
@@ -253,7 +251,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             )}
           />
         </div>
-        <div className="flex flex-col gap-5 md:flex-row md:w-[75%] md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
             control={form.control}
             name="price"
