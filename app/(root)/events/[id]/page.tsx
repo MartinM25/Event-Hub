@@ -121,6 +121,7 @@ const EventDetails = async ({
           limit={3}
           page={searchParams.page as string}
           totalPages={relatedEvents?.totalPages}
+          specialPage={false} 
         />
       </section>
 

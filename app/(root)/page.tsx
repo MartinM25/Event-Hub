@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Collection } from "@/components/shared/Collection";
+
+import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import { Collection } from "@/components/shared/Collection";
 
 export default async function Home() {
   const events = await getAllEvents({

@@ -65,7 +65,7 @@ const Newsletter = () => {
 
   return (
     <>
-      <section classname={`flex flex-row gap-x-4 justify-center md:justify-start ${showSuccess ? 'hidden' : ''}`}>
+      <section className={`flex flex-row gap-x-4 justify-center md:justify-start ${showSuccess ? 'hidden' : ''}`}>
         <div className='w-full '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-row">
