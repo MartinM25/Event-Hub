@@ -22,7 +22,7 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
   const isEventCreator = userId === event.organizer._id.toString();
 
   return (
-    <div className='group relative flex h-[330px] max-w-[380px] w-full flex-col overflow-hidden transition-all'>
+    <div className='group relative flex h-[380px] max-w-[380px] w-full flex-col transition-all'>
       
         <Link 
           href={`/events/${event._id}`}
@@ -49,7 +49,7 @@ const CardComponent = ({ event, hasOrderLink, hidePrice}: CardComponentProps) =>
               {event.isFree ? "FREE" : `$${event.price}`}
             </span>
             <Separator orientation='vertical' className='h-4'/>
-            <p className='text-sm p-semibold-14 text-secondary-foreground'>
+            <p className='text-sm line-clamp-1 p-semibold-14 text-secondary-foreground'>
               {event.category.name}
             </p>
           </div> 

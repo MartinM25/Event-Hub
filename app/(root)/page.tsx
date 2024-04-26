@@ -1,16 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
+import SearchComponent from "@/components/shared/Search";
 
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import { Collection } from "@/components/shared/Collection";
+import { SearchParamProps } from "@/types";
+import CategoryFilter from "@/components/shared/CategoryFilter";
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
+
   const events = await getAllEvents({
-    query: '',
-    category: '',
-    page: 1,
-    limit: 6
+    query: searchText,
+    category,
+    page,
+    limit: 8
   });
 
   return (
@@ -34,20 +41,20 @@ export default async function Home() {
         </div>
       </section>
      
-      <section id="events" className="flex flex-col px-10 md:px-20 py-8 gap-y-6" >
+      <section id="events" className="flex flex-col px-10 md:px-20 my-[130px] gap-y-6" >
         
-        <h2 className="text-3xl lg:text-4xl font-bold text-center p-3 lg:p-6">Thousand of Events, Trusted by Many</h2>
+        <h2 className="text-3xl lg:text-4xl font-bold py-3 lg:py-6">Thousands of Events, Trusted by Many</h2>
           
-        <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search
-          CategoryFilter
+        <div className="flex w-full flex-col pb-6 gap-5 md:flex-row md:justify-between">
+          <SearchComponent />
+          <CategoryFilter />
         </div>
 
         <Collection 
           data={events?.data}
-          page={1}
-          limit={6}
-          totalPages={2}
+          page={page}
+          limit={4}
+          totalPages={events?.totalPages}
           collectionType="All_Events"
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"

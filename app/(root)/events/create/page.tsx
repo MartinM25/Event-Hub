@@ -17,7 +17,7 @@ const CreateEvent = () => {
             Create an Event.
           </p>
         </div>
-
+        <Separator className="my-6" />
         <div className="flex flex-col">
           <EventForm userId={userId} type="Create" />
         </div>

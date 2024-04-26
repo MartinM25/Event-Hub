@@ -14,10 +14,9 @@ const MyEvents = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
 
-    const organizedEvents = await getEventsByUser({ userId, page: eventsPage })
+  const organizedEvents = await getEventsByUser({ userId, page: eventsPage })
 
   return (
     <div className="space-y-6">

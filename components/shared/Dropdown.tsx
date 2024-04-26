@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ICategory } from "@/lib/database/models/category.model"
 import { startTransition, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
-import { CirclePlus } from 'lucide-react';
+import { Button } from "../ui/button"
 import { createCategory, getAllCategories } from "@/lib/actions/category.actions"
 
 type DropdownProps = {
@@ -45,8 +45,8 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
           </SelectItem>
         ))}
         <AlertDialog>
-          <AlertDialogTrigger className="flex w-full rounded-sm py-1.5 pl-8 hover:bg-primary text-sm">
-            <CirclePlus className="h-4 w-4 mr-2" />
+          <AlertDialogTrigger className="flex w-full py-1.5 pl-8">
+            <Button>New Category</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
